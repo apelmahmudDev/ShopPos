@@ -1,38 +1,25 @@
-// App.tsx
+import 'react-native-gesture-handler';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
-// import {ThemeProvider, useAppTheme} from '@/theme';
-// import {NavDark, NavLight} from '@/theme/navThemes';
-// import RootNavigator from '@/navigation/RootNavigator';
-import { ThemeProvider, useAppTheme } from '@theme/index';
-import { NavDark, NavLight } from '@theme/navThemes';
-import { Text, View } from 'react-native';
+import NavContainer from '@/navigation';
+import { AuthProvider } from '@/context/AuthProvider';
+import { StyleSheet } from 'react-native';
 
-function AppNav() {
-  const { isDark } = useAppTheme();
-  return (
-    <NavigationContainer theme={isDark ? NavDark : NavLight}>
-      {/* <RootNavigator /> */}
-      <View
-        style={{
-          height: 500,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: '#fff', fontSize: 24 }}>Shop Pos</Text>
-      </View>
-    </NavigationContainer>
-  );
-}
-
-export default function App() {
-  return (
+const App: React.FC = () => (
+  <GestureHandlerRootView style={styles.container}>
     <SafeAreaProvider>
-      <ThemeProvider>
-        <AppNav />
-      </ThemeProvider>
+      <AuthProvider>
+        <NavContainer />
+      </AuthProvider>
     </SafeAreaProvider>
-  );
-}
+  </GestureHandlerRootView>
+);
+
+export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
