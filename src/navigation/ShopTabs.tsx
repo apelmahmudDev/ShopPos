@@ -10,10 +10,26 @@ import ProductDetailScreen from '@/features/products/screens/ProductDetailScreen
 import HomeScreen from '@/features/home/screens/HomeScreen';
 import CartScreen from '@/features/cart/screens/CartScreen';
 import ProfileScreen from '@/features/profile/screens/ProfileScreen';
-// import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons' // optional
+import { MaterialIcons } from '@react-native-vector-icons/material-icons';
 
 const Tabs = createBottomTabNavigator<ShopTabsParamList>();
 const ProductsStack = createNativeStackNavigator<ProductsStackParamList>();
+
+const HomeIcon = ({ color, size }: { color: string; size: number }) => (
+  <MaterialIcons name="home" size={size} color={color} />
+);
+
+const ProductsIcon = ({ color, size }: { color: string; size: number }) => (
+  <MaterialIcons name="workspaces" size={size} color={color} />
+);
+
+const CartIcon = ({ color, size }: { color: string; size: number }) => (
+  <MaterialIcons name="shopping-basket" size={size} color={color} />
+);
+
+const ProfileIcon = ({ color, size }: { color: string; size: number }) => (
+  <MaterialIcons name="person" size={size} color={color} />
+);
 
 const ProductsNavigator = () => (
   <ProductsStack.Navigator>
@@ -34,17 +50,30 @@ const ShopTabs: React.FC = () => (
   <Tabs.Navigator
     screenOptions={{
       headerShown: false,
-      // tabBarIcon: (...) => <Icon name="home" size={20} />
+      tabBarActiveTintColor: '#EC458D',
+      tabBarInactiveTintColor: 'gray',
     }}
   >
-    <Tabs.Screen name="Home" component={HomeScreen} />
+    <Tabs.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{ tabBarIcon: HomeIcon }}
+    />
     <Tabs.Screen
       name="ProductsStack"
       component={ProductsNavigator}
-      options={{ title: 'Products' }}
+      options={{ tabBarIcon: ProductsIcon, title: 'Products' }}
     />
-    <Tabs.Screen name="Cart" component={CartScreen} />
-    <Tabs.Screen name="Profile" component={ProfileScreen} />
+    <Tabs.Screen
+      name="Cart"
+      component={CartScreen}
+      options={{ tabBarIcon: CartIcon }}
+    />
+    <Tabs.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{ tabBarIcon: ProfileIcon }}
+    />
   </Tabs.Navigator>
 );
 
